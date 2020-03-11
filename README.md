@@ -9,6 +9,9 @@ PathWalks is a random walk based algorithm, developed in R, where a walker cross
 - Example command line call: Rscript pathwalks.R "geneEdgelistIPF.tsv" "hsaPathwayEdgelistIPF.tsv" 0.95 50 100 10 0.003
 
 The three translation files must be in the same directory with the pathwalks.R script.
+
 Use case example input data included.
-Idiopathic Pulmonary Fibrosis (geneEdgelistIPF.tsv, hsaPathwayEdgelistIPF.tsv)
-Alzheimer's Disease (geneEdgelistAD.tsv, hsaPathwayEdgelistAD.tsv)
+
+Idiopathic Pulmonary Fibrosis (geneEdgelistIPF.tsv, hsaPathwayEdgelistIPF.tsv).
+
+Alzheimer's Disease (geneEdgelistAD.tsv, hsaPathwayEdgelistAD.tsv).
