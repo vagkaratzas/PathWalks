@@ -12,6 +12,5 @@ The three translation files must be in the same directory with the pathwalks.R s
 
 Use case example input data included.
 
-Idiopathic Pulmonary Fibrosis (geneEdgelistIPF.tsv, hsaPathwayEdgelistIPF.tsv).
-
-Alzheimer's Disease (geneEdgelistAD.tsv, hsaPathwayEdgelistAD.tsv).
+-Idiopathic Pulmonary Fibrosis (geneEdgelistIPF.tsv, hsaPathwayEdgelistIPF.tsv).
+-Alzheimer's Disease (geneEdgelistAD.tsv, hsaPathwayEdgelistAD.tsv).
