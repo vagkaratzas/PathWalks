@@ -1,0 +1,2 @@
+# PathWalks
+PathWalks is a random walk based algorithm where a walker crosses a pathway-to-pathway network under the guidance of a disease-related map. The latter is a gene network that we construct by integrating multi-source information regarding a specific disease. The most frequent trajectories highlight communities of pathways that are expected to be strongly related to the disease under study.
