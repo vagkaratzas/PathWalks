@@ -4,4 +4,11 @@ PathWalks is a random walk based algorithm, developed in R, where a walker cross
 - Required library: igraph
 - Arguments: gene_network_file, pathway_network_file, converging_factor, gene_restart_timer, check_similarity_timer, number_of_last_variances_to_check, converging_variance
 - Network files must be in edgelist form.
+- Gene netwrok must contain gene symbols.
+- Pathway network must contain KEGG hsa pathway ids (example: hsaPathwayEdgelist_commonGenes.tsv, showing functional connections among pathways as found in KEGG and each edge weight represents the number of common genes between two pathways).
 - Example command line call: Rscript pathwalks.R "geneEdgelistIPF.tsv" "hsaPathwayEdgelistIPF.tsv" 0.95 50 100 10 0.003
+
+The three translation files must be in the same directory with the pathwalks.R script.
+Use case example input data included.
+Idiopathic Pulmonary Fibrosis (geneEdgelistIPF.tsv, hsaPathwayEdgelistIPF.tsv)
+Alzheimer's Disease (geneEdgelistAD.tsv, hsaPathwayEdgelistAD.tsv)
