@@ -3,6 +3,7 @@
 # Required library: igraph
 # Arguments: gene_network_file, pathway_network_file, converging_factor, gene_restart_timer, check_similarity_timer, number_of_last_variances_to_check, converging_variance
 # Network files must be in edgelist form.
+# Results: 1. Pathway ranks 2. Re-weighted pathways' network edgelist 3. Pathway clusters
 # Example command line call: Rscript pathwalks.R "geneEdgelistIPF.tsv" "hsaPathwayEdgelistIPF.tsv" 0.95 50 100 10 0.003
 
 translateInputGenes <- function(filename) {
@@ -240,6 +241,22 @@ printOutputEdgelist <- function(rand){
   return(1)
 }
 
+louvainClustering <- function(filename){
+  edgelist <- as.matrix(read.delim(filename, header = FALSE))
+  graph <- graph_from_edgelist(edgelist[, 1:2], directed = FALSE)
+  E(graph)$weight <- as.double(edgelist[, 3])
+  # remove loops and multiple edges, simplify sum aggregates same edges
+  graph <- simplify(graph, remove.multiple = TRUE, remove.loops = TRUE, edge.attr.comb = list(weight = "sum"))
+  louvainClusters <- cluster_louvain(graph)
+  outFile <- paste(randStr, "clusters.txt", sep="_")
+  if (file.exists(outFile)) file.remove(outFile)
+  for (i in 1:length(louvainClusters)){
+    write.table(paste("\nCluster ", i, " - ", length(louvainClusters[[i]]), " pathways:\n", sep=""), outFile, col.names = FALSE, row.names = FALSE, quote = FALSE, append = TRUE)
+    write.table(louvainClusters[i], outFile, col.names = FALSE, row.names = FALSE, quote = FALSE, append = TRUE)
+  }
+  return(louvainClusters)
+}
+
 #####
 
 # MAIN ####
@@ -347,7 +364,7 @@ zero_column <- matrix(0, nrow = nrow(rankedEdges), ncol = 1)
 rankedEdges <- cbind(rankedEdges, zero_column)
 
 # initialization of the similarities matrix to check variance of values
-lastSimilarityIndexes <- matrix(-1, nrow = number_of_last_variances_to_check , ncol = 1)
+lastSimilarityIndexes <- matrix(0, nrow = number_of_last_variances_to_check , ncol = 1)
 
 # initialization of global timer variables
 start_time <- 0
@@ -358,12 +375,20 @@ cat(sprintf("Starting the algorithm execution..\n"))
 # # read from file, if previously stopped mid-execution
 # rankedPathways <- readRDS("rankedPathways.rds")
 # rankedEdges <- readRDS("rankedEdges.rds")
+start <- Sys.time()
 done <- suppressWarnings(infOmicsWalk(geneGraph, pathwaysGraph))
+end <- Sys.time()
+dif <- end - start
+cat(sprintf("Total PathWalks execution time: %f\n", dif))
 
 # writing outputs; pathway ranks and pathway edgelist with scores
 cat(sprintf("Printing Outputs..\n"))
 randStr <- randGenerator() #random string for unique name
 done <- printOutputRankedPathways(randStr)
 done <- printOutputEdgelist(randStr)
+
+# Louvain community detection
+cat(sprintf("Printing Communities as detected by the Louvain method..\n"))
+louvainClusters <- louvainClustering(paste(randStr, "rankedEdges.tsv", sep="_"))
 
 #####
