@@ -15,7 +15,7 @@ translateInputGenes <- function(filename) {
     gene2 <- geneSymbolEdgelist[i, 2][[1]]
     hsaGene1 <- gene_translation_matrix[which(gene_translation_matrix[, 2] %in% gene1), 1][1] # in the case of a gene translating to more than one ids, we keep the first id
     hsaGene2 <- gene_translation_matrix[which(gene_translation_matrix[, 2] %in% gene2), 1][1]
-    if (length(hsaGene2) > 0 && length(hsaGene1) > 0) hsaGeneEdgelist <- rbind(hsaGeneEdgelist, c(as.character(hsaGene1[1]), as.character(hsaGene2[1]), geneSymbolEdgelist[i, 3]))
+    if (!is.na(hsaGene2) && !is.na(hsaGene1)) hsaGeneEdgelist <- rbind(hsaGeneEdgelist, c(as.character(hsaGene1[1]), as.character(hsaGene2[1]), geneSymbolEdgelist[i, 3]))
   }
   return(hsaGeneEdgelist)
 }
