@@ -364,7 +364,7 @@ zero_column <- matrix(0, nrow = nrow(rankedEdges), ncol = 1)
 rankedEdges <- cbind(rankedEdges, zero_column)
 
 # initialization of the similarities matrix to check variance of values
-lastSimilarityIndexes <- matrix(0, nrow = number_of_last_variances_to_check , ncol = 1)
+lastSimilarityIndexes <- matrix(-1, nrow = number_of_last_variances_to_check , ncol = 1)
 
 # initialization of global timer variables
 start_time <- 0
