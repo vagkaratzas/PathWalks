@@ -324,7 +324,7 @@ suppressMessages(library("igraph"))
 # load translation files
 cat(sprintf("Loading KEGG gene and pathway translation and linkage  files..\n"))
 gene_translation_matrix <- as.matrix(read.delim("gene_translation_dec_2019.tsv", header = FALSE))
-pathway_translation_matrix <- as.matrix(read.delim("hsa_pathway_tranlsation_dec_2019.tsv", header = FALSE))
+pathway_translation_matrix <- as.matrix(read.delim("hsa_pathway_translation_dec_2019.tsv", header = FALSE))
 gene_pathway_links_matrix <- as.matrix(read.delim("gene_pathway_links_dec_2019.tsv", header = FALSE))
 # parse for pathways selection normalization
 num_genes_per_pathway <- as.matrix(table(gene_pathway_links_matrix[,1]))
